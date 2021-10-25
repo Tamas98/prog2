@@ -12,10 +12,9 @@ import java.util.Set;
 public class GenericMethodsMain {
     public static void main(String[] args) {
         GenericService genericService = new GenericService();
-        genericService.printGenericsClass("Hello");
-        List<Integer> numberList = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
-        List<Double> doubleSet = new ArrayList<>(Arrays.asList(1.0,2.0,30.23,10.24));
-        genericService.printLists(numberList, doubleSet);
-        System.out.println(genericService.addNumbers(1, 12));
+        genericService.printVariableClass("Hello");
+        genericService.printVariableClass(5);
+        genericService.printVariableClass(new Object());
+
     }
 }

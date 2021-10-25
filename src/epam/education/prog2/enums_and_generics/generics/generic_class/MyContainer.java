@@ -1,13 +1,7 @@
 package epam.education.prog2.enums_and_generics.generics.generic_class;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collections;
 
-/**
- * TODO docme.
- */
-// Type parameters usually named T
 public class MyContainer<T> {
 
     private T[] container;
