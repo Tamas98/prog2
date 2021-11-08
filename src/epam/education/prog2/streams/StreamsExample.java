@@ -1,7 +1,10 @@
 package epam.education.prog2.streams;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import epam.education.prog2.streams.domain.Movie;
 
@@ -33,5 +36,49 @@ public class StreamsExample {
 
     public List<Movie> getMovieList() {
         return movieList;
+    }
+
+    public void printSearchResult(String searchValue) {
+        this.movieList.stream().filter(movie -> movie.getTitle().contains(searchValue))
+                                .map(Movie::getTitle)
+                                .forEach(System.out::println);
+    }
+
+    public void printMoviesAfterDate(int year) {
+        this.movieList.stream().filter(movie -> movie.getReleased() > year)
+                                .map(Movie::getTitle)
+                                .forEach(System.out::println);
+    }
+
+    public void printMovieFromYearAndGenre(int year, String genre) {
+        this.movieList.stream().filter(movie -> movie.getGenres().contains(genre) && movie.getReleased() == year)
+                .map(Movie::getTitle)
+                .forEach(System.out::println);
+    }
+
+    public long getMovieNumberWithHighRating() {
+        return this.movieList.stream().filter(movie -> movie.getRating() >= 7).count();
+    }
+
+    public void printTop3MovieTitle() {
+        this.movieList.stream()
+                        .sorted((movie1,movie2) -> movie2.getRating() - movie1.getRating())
+                        .limit(3)
+                        .map(Movie::getTitle)
+                        .forEach(System.out::println);
+    }
+
+    public String getWorstMovieDirectors() {
+        return this.movieList.stream()
+                .sorted(Comparator.comparingInt(Movie::getRating))
+                .limit(3)
+                .map(Movie::getDirector)
+                .collect(Collectors.joining(", ", "[" , "]"));
+    }
+
+    public Map<Integer, List<Movie>> pairSearchResultByRating(String searchValue) {
+        return this.movieList.stream()
+                .filter(movie -> movie.getTitle().contains(searchValue))
+                .collect(Collectors.groupingBy(Movie::getRating));
     }
 }
